@@ -17,7 +17,7 @@ class ImportController extends Controller
         $validate = $request->validate(
             //regras
             [
-                'dados' => 'required|file|mimes:xlsx|max:300000'  //verifica se o arquivo foi selecionado e se está no formato e tamanho exigido
+                'dados' => 'required|file|mimes:xlsx|max:10000'  //verifica se o arquivo foi selecionado e se está no formato e tamanho exigido
             ],
             //mensagem de erro
             [

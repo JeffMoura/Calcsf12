@@ -186,9 +186,6 @@ class ExportController extends Controller
 
         ]);
  
-       // dd($dadosrelatorio);
-
-    
         //retorna o download do relatório em PDF
           return Excel::download($dadosrelatorio, 'RelatórioSF12.pdf');
 
