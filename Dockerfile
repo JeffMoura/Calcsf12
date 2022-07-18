@@ -12,5 +12,3 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
    install-php-extensions gd zip exif  
    #pdo pdo_mysql 
 
-#RUN docker-php-ext-install mysqli pdo pdo_mysql exif
-
