@@ -46,16 +46,6 @@ services:
       - laravel
   
 
-#npm
-  npm: 
-    image: node:13.7
-    container_name: npm_laravel
-    volumes: 
-      - ./src:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ['npm']
-
-
 #artisan
   artisan:
     build: 
