@@ -10,5 +10,4 @@ ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/mas
 #rodar o comando instalando as extensões
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
    install-php-extensions gd zip exif  
-   #pdo pdo_mysql 
 
