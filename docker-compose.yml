@@ -3,31 +3,57 @@ version: '3.0'
 networks:
   laravel:
 
-#Web
+#definir serviços
 services:
 
+  #Container nginx
   nginx: 
     image: nginx:stable-alpine
     container_name: nginx_laravel
     ports: 
-      - "8000:80"
+      - "8000:80" #Essa é a porta para acessar o site (pode ser alterada conforme necessidade)
     volumes:
-      - ./:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/html  #volume onde irá buscar os arquivos da aplicação
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf #arquivo de configuração do nginx
     depends_on:
       - php
     networks:
       - laravel
 
-  #Laravel 
+  #Container PHP 
   php:
+    build: 
+      context: .  #contexto pasta raíz
+      dockerfile: Dockerfile   #chama o arquivo Dockerfile
+    container_name: php_laravel
+    volumes: 
+      - ./:/var/www/html  
+    ports: 
+      - "9004:9004"
+    networks: 
+      - laravel
+
+  #composer - gerenciador de pacotes laravel-php
+  composer:
+    image: composer:latest
+    container_name: composer_laravel
+    volumes: 
+      - ./:/var/www/html
+    working_dir: /var/www/html  #irá executar neste diretório
+    depends_on: 
+      - php
+    networks: 
+      - laravel
+
+  #artisan - utilizado pelo laravel para execução de vários comandos
+  artisan:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: php_laravel
+    container_name: artisan_laravel
     volumes: 
       - ./:/var/www/html
-    ports: 
-      - "9004:9004"
+    working_dir: /var/www/html
+    entrypoint: ['php', '/var/www/html/artisan']  #quando utilizar artisan, ele vai utilizar o comando
     networks: 
       - laravel
